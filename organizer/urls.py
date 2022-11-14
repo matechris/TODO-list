@@ -2,7 +2,8 @@ from django.urls import path
 
 from organizer.views import (
     TaskListView, TagListView, TaskCreateView,
-    TaskUpdateView, TaskDeleteView,
+    TaskUpdateView, TaskDeleteView, TagCreateView,
+    TagUpdateView, TagDeleteView
 )
 
 urlpatterns = [
@@ -30,6 +31,21 @@ urlpatterns = [
         "tasks/<int:pk>/delete/",
         TaskDeleteView.as_view(),
         name="task-delete"
+    ),
+    path(
+        "tags/create/",
+        TagCreateView.as_view(),
+        name="tag-create"
+    ),
+    path(
+        "tags/<int:pk>/update/",
+        TagUpdateView.as_view(),
+        name="tag-update"
+    ),
+    path(
+        "tags/<int:pk>/delete/",
+        TagDeleteView.as_view(),
+        name="tag-delete"
     )
 ]
 
