@@ -10,9 +10,22 @@
   {% if task_list %}
     <ul>
       {% for task in task_list %}
+        <div>
         <li>
-          {{ task.content }} ({{ task.created_at }}, {{ task.tags }})
+        <h4>
+          {{ task.content }}
+          {% if task.is_done %}
+            <p style="color: green">Done</p>
+          {% else %}
+            <p style="color: red">Not done</p>
+          {% endif %}
+        </h4>
+        <p>Created: {{ task.created_at }}</p>
+        <p>Tags: {{ task.tags }}</p>
+        <a href="{% url 'organizer:task-update' pk=task.id %}">Update</a>
+        <a href="{% url 'organizer:task-delete' pk=task.id %}">Delete</a>
         </li>
+        </div>
       {% endfor %}
     </ul>
   {% else %}
