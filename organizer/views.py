@@ -1,15 +1,13 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
-from organizer.forms import TaskForm
+from organizer.forms import TaskForm, TagForm
 from organizer.models import Task, Tag
 
 
 class TaskListView(generic.ListView):
     model = Task
-    queryset = Task.objects.prefetch_related("tags")
 
 
 class TaskCreateView(generic.CreateView):
@@ -35,13 +33,13 @@ class TagListView(generic.ListView):
 
 class TagCreateView(generic.CreateView):
     model = Tag
-    fields = "__all__"
+    form_class = TagForm
     success_url = reverse_lazy("organizer:tag-list")
 
 
 class TagUpdateView(generic.UpdateView):
     model = Tag
-    fields = "__all__"
+    form_class = TagForm
     success_url = reverse_lazy("organizer:tag-list")
 
 
