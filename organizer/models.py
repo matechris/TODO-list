@@ -13,3 +13,6 @@ class Task(models.Model):
     tags = models.ManyToManyField(
         to=Tag, related_name="tasks"
     )
+
+    class Meta:
+        ordering = ["is_done", "created_at"]

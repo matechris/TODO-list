@@ -6,7 +6,7 @@
     <ul>
       {% for task in task_list %}
         <li>
-          {{ task.content }} ({{ task.created_at }})
+          {{ task.content }} ({{ task.created_at }}, {{ task.tags }})
         </li>
       {% endfor %}
     </ul>
