@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>TODO list</h1>
+  <a href="{% url 'organizer:task-create' %}"
+     class="btn btn-primary link-to-page"
+     style="float: right">
+    Create
+  </a>
+  {% if task_list %}
+    <ul>
+      {% for task in task_list %}
+        <div style="margin: 20px">
+          <h4>
+            {{ task.content }}
+            {% if task.is_done %}
+              <p style="color: green">Done</p>
+              <a class="btn btn-secondary"
+                 href="{% url 'organizer:mark-as-not-done' pk=task.id %}"
+                 style="float: right">
+                Undo
+              </a>
+            {% else %}
+              <p style="color: red">Not done</p>
+                <a class="btn btn-success"
+                 href="{% url 'organizer:mark-as-done' pk=task.id %}"
+                 style="float: right">
+                Complete
+              </a>
+            {% endif %}
+          </h4>
+          <p>Created: {{ task.created_at }}</p>
+          <p style="color: coral">
+            {% if task.deadline %}
+              Deadline: {{ task.deadline }}
+            {% endif %}
+          </p>
+          <p><strong>Tags:</strong>
+            {% for tag in task.tags.all %}
+              {{ tag.name }}
+            {% endfor %}
+          </p>
+          <a href="{% url 'organizer:task-update' pk=task.id %}">Update</a>
+          <a href="{% url 'organizer:task-delete' pk=task.id %}">Delete</a>
+        </div>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no tasks yet!</p>
+  {% endif %}
+{% endblock %}
