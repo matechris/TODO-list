@@ -18,10 +18,16 @@
         <tr>
           <td>{{ tag.name }}</td>
           <td>
-            <a href="{% url 'organizer:tag-update' pk=tag.id %}">Update</a>
+            <a href="{% url 'organizer:tag-update' pk=tag.id %}"
+               class="btn btn-secondary">
+              Update
+            </a>
           </td>
           <td>
-            <a href="{% url 'organizer:tag-delete' pk=tag.id %}">Delete</a>
+            <a href="{% url 'organizer:tag-delete' pk=tag.id %}"
+               class="btn btn-secondary">
+              Delete
+            </a>
           </td>
         </tr>
       {% endfor %}
