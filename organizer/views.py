@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
@@ -47,3 +48,22 @@ class TagDeleteView(generic.DeleteView):
     model = Tag
     success_url = reverse_lazy("organizer:tag-list")
 
+
+def mark_task_as_done(request, pk):
+    task = Task.objects.get(id=pk)
+    if not task.is_done:
+        task.is_done = True
+    task.save()
+    return HttpResponseRedirect(
+        reverse_lazy("organizer:task-list")
+    )
+
+
+def mark_task_as_not_done(request, pk):
+    task = Task.objects.get(id=pk)
+    if task.is_done:
+        task.is_done = False
+    task.save()
+    return HttpResponseRedirect(
+        reverse_lazy("organizer:task-list")
+    )

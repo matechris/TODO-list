@@ -11,20 +11,28 @@
     <ul>
       {% for task in task_list %}
         <div>
-        <li>
-        <h4>
-          {{ task.content }}
-          {% if task.is_done %}
-            <p style="color: green">Done</p>
-          {% else %}
-            <p style="color: red">Not done</p>
-          {% endif %}
-        </h4>
-        <p>Created: {{ task.created_at }}</p>
-        <p>Tags: {{ task.tags }}</p>
-        <a href="{% url 'organizer:task-update' pk=task.id %}">Update</a>
-        <a href="{% url 'organizer:task-delete' pk=task.id %}">Delete</a>
-        </li>
+          <h4>
+            {{ task.content }}
+            {% if task.is_done %}
+              <p style="color: green">Done</p>
+              <a class="btn btn-secondary"
+                 href="{% url 'organizer:mark-as-not-done' pk=task.id %}"
+                 style="float: right">
+                Undo
+              </a>
+            {% else %}
+              <p style="color: red">Not done</p>
+                <a class="btn btn-success"
+                 href="{% url 'organizer:mark-as-done' pk=task.id %}"
+                 style="float: right">
+                Mark as done
+              </a>
+            {% endif %}
+          </h4>
+          <p>Created: {{ task.created_at }}</p>
+          <p>Tags: {{ task.tags }}</p>
+          <a href="{% url 'organizer:task-update' pk=task.id %}">Update</a>
+          <a href="{% url 'organizer:task-delete' pk=task.id %}">Delete</a>
         </div>
       {% endfor %}
     </ul>
